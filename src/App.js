@@ -4,6 +4,7 @@ import "./App.css";
 import Form from "./components/Form";
 
 function App() {
+  //setting up initial values of form fields
   const initialValues = {
     username: "",
     dob: "",
@@ -21,11 +22,13 @@ function App() {
   const [isValid, setIsValid] = useState(false);
   const [isSubmitButtonClicked, setIsSubmitButtonClicked] = useState(false);
 
+  // setting up values inputed by user
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // validating and showing Result message when user clicks on submit button
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isSubmitButtonClicked) {
@@ -34,6 +37,7 @@ function App() {
     setFormErrors(validate(formValues));
   };
 
+  // applying validation on user inputs
   const validate = (values) => {
     const errors = {};
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;

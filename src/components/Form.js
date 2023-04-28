@@ -13,6 +13,7 @@ const Form = ({
   const [statesData, setStatesData] = useState([]);
   const [selectedState, setSelectedState] = useState("");
 
+  // fetching API for listing all the countries
   useEffect(() => {
     const asyncFn = async () => {
       const url = "https://city-and-state-search-api.p.rapidapi.com/countries";
@@ -40,6 +41,7 @@ const Form = ({
     asyncFn();
   }, []);
 
+  // fetching API for listing all the states according to the selected country
   useEffect(() => {
     if (selectedCountry) {
       const asyncFn = async () => {
@@ -73,6 +75,7 @@ const Form = ({
     }
   }, [selectedCountry]);
 
+  // setting up state values when user selects an state
   useEffect(() => {
     setFormValues({ ...formValues, state: selectedState });
   }, [selectedState]);
