@@ -73,6 +73,9 @@ function App() {
   return (
     <div className="parent">
       <Frame>
+        <style
+          dangerouslySetInnerHTML={{ __html: "body { background: grey }" }}
+        />
         <Form
           initialValues={initialValues}
           formValues={formValues}
