@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/form.css";
-import { useState, useEffect } from "react";
 
-const Form = () => {
+const Form = ({
+  initialValues,
+  formValues,
+  setFormValues,
+  handleChange,
+  handleSubmit,
+}) => {
   const [countriesData, setCountriesData] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState();
-  const [statesData,setStatesData] = useState([]);
-  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [statesData, setStatesData] = useState([]);
+  const [selectedState, setSelectedState] = useState("");
 
   useEffect(() => {
     const asyncFn = async () => {
@@ -26,7 +31,6 @@ const Form = () => {
         const result = await response.json();
 
         const arr = result.map((el) => el.name);
-        console.log(arr);
         setCountriesData(arr);
       } catch (error) {
         console.error(error);
@@ -54,43 +58,64 @@ const Form = () => {
           const response = await fetch(url, options);
           const result = await response.json();
           const arr = result.map((el) => el.name);
-          console.log(arr);
-          setSelectedState(null);
-          setStatesData(arr)
+         
+          setSelectedState("");
+          setStatesData(arr);
+          setFormValues({ ...formValues, country: selectedCountry });
         } catch (error) {
           console.error(error);
         }
       };
       asyncFn();
-    } 
-    else{
-        setStatesData([]);
+    } else {
+      setFormValues({ ...formValues, country: "", state: "" });
+      setStatesData([]);
     }
   }, [selectedCountry]);
 
+  useEffect(() => {
+    setFormValues({ ...formValues, state: selectedState });
+  }, [selectedState]);
+
   return (
     <div className="header">
-      <p>Can you rovide your personal details?</p>
-      <form>
+      <p>Can you provide your personal details?</p>
+      <form onSubmit={handleSubmit}>
         <div className="inputs">
           <label for="">Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            name="username"
+            value={formValues.username}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="inputs">
           <label for="">Date of birth</label>
-          <input type="date" />
+          <input
+            type="date"
+            name="dob"
+            value={formValues.dob}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="inputs">
           <label for="">Contact Number</label>
-          <input type="number" />
+          <input
+            type="text"
+            name="contact"
+            value={formValues.contact}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="inputs">
           <label for="">Country</label>
           <select
             name="country"
+            value={formValues.country}
             onChange={(e) => setSelectedCountry(e.target.value)}
           >
             <optgroup label="Select a country">
@@ -107,7 +132,8 @@ const Form = () => {
           <label for="">State</label>
           <select
             name="state"
-           onChange={(e)=>setSelectedState(e.target.value)}
+            value={formValues.state}
+            onChange={(e) => setSelectedState(e.target.value)}
           >
             <optgroup label="Select a state">
               <option></option>
@@ -121,7 +147,12 @@ const Form = () => {
 
         <div className="inputs">
           <label for="">Email</label>
-          <input type="email" />
+          <input
+            type="text"
+            name="email"
+            value={formValues.email}
+            onChange={handleChange}
+          />
         </div>
 
         <button>Submit</button>

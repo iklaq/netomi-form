@@ -10,9 +10,9 @@ body {
 }
 
 iframe {
-  margin-top: 50px;
+  margin-top: 30px;
   border-style: groove;
   border-color: red;
-  height: 60vh;
-  width: 25vw;
+  height: 50vh;
+  width: 30vw;
 }
