@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  text-align: center;
+  border: 5px solid green;
+  height: 100vh;
+}
+
+iframe {
+  margin-top: 30px;
+  border-style: groove;
+  border-color: red;
+  height: 50vh;
+  width: 30vw;
+}
