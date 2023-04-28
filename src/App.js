@@ -84,7 +84,7 @@ function App() {
 
       {isSubmitButtonClicked ? (
         <pre>
-          Result:{" "}
+          Result:
           {JSON.stringify(isValid ? successResult : formErrors, undefined, 2)}
         </pre>
       ) : (
